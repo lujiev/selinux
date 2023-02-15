@@ -117,12 +117,11 @@ int insert_id(const char *id, int push)
 	char *newid = 0;
 	int error;
 
-	newid = (char *)malloc(strlen(id) + 1);
+	newid = strdup(id);
 	if (!newid) {
 		yyerror("out of memory");
 		return -1;
 	}
-	strcpy(newid, id);
 	if (push)
 		error = queue_push(id_queue, (queue_element_t) newid);
 	else
@@ -1417,7 +1416,7 @@ static int define_typebounds_helper(char *bounds_id, char *type_id)
 	if (!type->bounds)
 		type->bounds = bounds->s.value;
 	else if (type->bounds != bounds->s.value) {
-		yyerror2("type %s has inconsistent master {%s,%s}",
+		yyerror2("type %s has inconsistent bounds %s/%s",
 			 type_id,
 			 policydbp->p_type_val_to_name[type->bounds - 1],
 			 policydbp->p_type_val_to_name[bounds->s.value - 1]);

@@ -1,4 +1,4 @@
-#!/usr/bin/python3 -Es
+#!/usr/bin/python3 -EsI
 # Copyright (C) 2012-2013 Red Hat
 # AUTHOR: Miroslav Grepl <mgrepl@redhat.com>
 # AUTHOR: David Quigley <selinux@davequigley.com>
@@ -130,7 +130,7 @@ class SetImportFile(argparse.Action):
                 sys.exit(1)
         setattr(namespace, self.dest, values)
 
-# define dictionary for seobject OBEJCTS
+# define dictionary for seobject OBJECTS
 object_dict = {
     'login': seobject.loginRecords,
     'user': seobject.seluserRecords,
