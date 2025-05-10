@@ -313,7 +313,7 @@ static void display_expr(const cond_expr_t * exp)
 		switch (cur->expr_type) {
 		case COND_BOOL:
 			printf("%s ",
-			       policydbp->p_bool_val_to_name[cur->bool - 1]);
+			       policydbp->p_bool_val_to_name[cur->boolean - 1]);
 			break;
 		case COND_NOT:
 			printf("! ");
@@ -354,14 +354,14 @@ static int display_cond_expressions(void)
 
 static int change_bool(const char *name, int state)
 {
-	cond_bool_datum_t *bool;
+	cond_bool_datum_t *boolean;
 
-	bool = hashtab_search(policydbp->p_bools.table, name);
-	if (bool == NULL) {
+	boolean = hashtab_search(policydbp->p_bools.table, name);
+	if (boolean == NULL) {
 		printf("Could not find bool %s\n", name);
 		return -1;
 	}
-	bool->state = state;
+	boolean->state = state;
 	evaluate_conds(policydbp);
 	return 0;
 }

@@ -924,6 +924,15 @@ static int validate_avrules(sepol_handle_t *handle, const avrule_t *avrule, int 
 		case 0:
 		case RULE_SELF:
 			break;
+		case RULE_NOTSELF:
+			switch(avrule->specified) {
+			case AVRULE_NEVERALLOW:
+			case AVRULE_XPERMS_NEVERALLOW:
+				break;
+			default:
+				goto bad;
+			}
+			break;
 		default:
 			goto bad;
 		}
@@ -965,7 +974,7 @@ static int validate_cond_expr(sepol_handle_t *handle, const struct cond_expr *ex
 	for (; expr; expr = expr->next) {
 		switch(expr->expr_type) {
 		case COND_BOOL:
-			if (validate_value(expr->bool, boolean))
+			if (validate_value(expr->boolean, boolean))
 				goto bad;
 			if (depth == (COND_EXPR_MAXDEPTH - 1))
 				goto bad;
